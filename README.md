@@ -17,6 +17,11 @@ Choose & download the right file.
 
 ## Building
 ### Requirements (one of each or all)
+#### Scripts (optional)
+* Powershell (Windows only)
+* Manully run CMake
+* Using some other extensions for CMake
+
 #### Build system
 * CMake - mandatory - version 4.1.0
 
@@ -28,6 +33,10 @@ Choose & download the right file.
 
 ### Dependencies
 * Testing framework - GoogleTest (Release tag: 1.17.0)
+
+### CMake Options
+* BUILD_TESTS - ON/OFF - OFF by default - Builds executable containing tests
+* BUILD_STATIC_LIBRARY - ON/OFF - OFF by default - Builds library to be linked statically
 
 ## Tested on
 |Host OS   |Target OS |Host architecture|Target architecture|Compiler name|Compiler binary name     |Compiler source|Compiler version|
