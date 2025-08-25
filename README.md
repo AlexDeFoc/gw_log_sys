@@ -5,7 +5,7 @@ A clean, portable, modern C++ 23 library
 * Ability to log 'messages'
 * Select which log level a message to be displayed as: none, info, warning, error, debug
 * Limit the log level per 'logger', this way you can hide the debug log messages
-* The log level segment is colored! (if your terminal can display the color)
+* The log level segment is colored! (if your terminal can display the color) (not yet)
 
 ## Download
 Go to [Releases](https://github.com/AlexDeFoc/gw_log_sys/releases)
