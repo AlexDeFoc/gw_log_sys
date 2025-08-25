@@ -1,0 +1,55 @@
+Checks: >
+  -*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  google-*,
+  llvm-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  clang-analyzer-*
+
+CheckOptions:
+  # Variables
+  - key:             readability-identifier-naming.VariableCase
+    value:           snake_case
+  # Function parameters
+  - key:             readability-identifier-naming.ParameterCase
+    value:           p_snake_case
+  # Member variables
+  - key:             readability-identifier-naming.MemberCase
+    value:           snake_case
+  - key:             readability-identifier-naming.MemberPrefix
+    value:           m_
+  # Public members
+  - key:             readability-identifier-naming.PublicMemberPrefix
+    value:           ""
+  # Constants
+  - key:             readability-identifier-naming.ConstantCase
+    value:           k_snake_case
+  - key:             readability-identifier-naming.ConstantPrefix
+    value:           k_
+  # Functions
+  - key:             readability-identifier-naming.FunctionCase
+    value:           PascalCase
+  # Classes/Structs
+  - key:             readability-identifier-naming.ClassCase
+    value:           PascalCase
+  - key:             readability-identifier-naming.StructCase
+    value:           PascalCase
+  # Enums
+  - key:             readability-identifier-naming.EnumCase
+    value:           PascalCase
+  - key:             readability-identifier-naming.EnumConstantCase
+    value:           k_snake_case
+  - key:             readability-identifier-naming.EnumConstantPrefix
+    value:           k_
+  # Namespaces
+  - key:             readability-identifier-naming.NamespaceCase
+    value:           snake_case
+
+HeaderFilterRegex: '.*\.(cpp|hpp)$'
+
+FormatStyle: none
