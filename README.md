@@ -35,7 +35,7 @@ Choose & download the right file.
 * Testing framework - GoogleTest (Release tag: 1.17.0)
 
 ### CMake Options
-* BUILD_TESTS - ON/OFF - OFF by default - Builds executable containing tests
+* BUILD_TESTS - ON/OFF - ON by default - Builds executable containing tests
 * BUILD_STATIC_LIBRARY - ON/OFF - OFF by default - Builds library to be linked statically
 
 ## Tested on

@@ -1,33 +1,110 @@
 // Subject being implemented
 #include "../include/gw_logger.hpp"
 
+// OS dependent code
+// Windows code
+#ifdef _WIN32
+
+// System Libraries
+#include <windows.h>
+
+// Function
+namespace {
+auto ConfigureConsoleForColor() noexcept -> bool {
+  static bool console_configured = false;
+
+  if (console_configured) {
+    return true;
+  }
+
+  console_configured = true;
+
+  HANDLE std_out = GetStdHandle(STD_OUTPUT_HANDLE);
+  if (std_out == INVALID_HANDLE_VALUE) {
+    return false;
+  }
+
+  DWORD console_mode = 0;
+  if (GetConsoleMode(std_out, &console_mode) == 0) {
+    return false;
+  }
+
+  console_mode |=
+      ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
+
+  if (SetConsoleMode(std_out, console_mode) == 0) {
+    return false;
+  }
+
+  return console_configured;
+}
+}  // namespace
+
+// Other OSes
+#else
+namespace {
+auto ConfigureConsoleForColor() noexcept -> bool { return true; }
+}  // namespace
+#endif
+
+// Internal libraries
+#include "./include/gw_color.hpp"
+#include "./include/gw_level_message.hpp"
+
 // Helper functions
 // clang-format off
 namespace {
-auto ComposeMessage(gw::log::Level p_level, std::string_view p_text) noexcept -> std::string {
-  switch (p_level) {
-    case gw::log::Level::k_none:
-      return std::format("{}", p_text);
+auto ColorizeLogLevelTag(gw::log::Level p_level) noexcept -> std::string {
+  bool console_supports_color = ConfigureConsoleForColor();
+  
+  switch(p_level) {
+    case gw::log::Level::k_none: {
+      return {};
+    }
     case gw::log::Level::k_info: {
-      return std::format("{}: {}", gw::log::LevelMessage::k_info, p_text);
-      break;
+      if (console_supports_color) {
+        return std::format("{}{}{}", gw::log::Color::k_cyan, gw::log::LevelMessage::k_info, gw::log::Color::k_reset);
+      }  
+
+      return {gw::log::LevelMessage::k_info};
     }
     case gw::log::Level::k_warning: {
-      return std::format("{}: {}", gw::log::LevelMessage::k_warning, p_text);
-      break;
+      if (console_supports_color) {
+        return std::format("{}{}{}", gw::log::Color::k_yellow, gw::log::LevelMessage::k_warning, gw::log::Color::k_reset);
+      }  
+
+      return {gw::log::LevelMessage::k_warning};
     }
     case gw::log::Level::k_error: {
-      return std::format("{}: {}", gw::log::LevelMessage::k_error, p_text);
-      break;
+      if (console_supports_color) {
+        return std::format("{}{}{}", gw::log::Color::k_red, gw::log::LevelMessage::k_error, gw::log::Color::k_reset);
+      }  
+
+      return {gw::log::LevelMessage::k_error};
     }
     case gw::log::Level::k_debug: {
-      return std::format("{}: {}", gw::log::LevelMessage::k_debug, p_text);
-      break;
+      if (console_supports_color) {
+        return std::format("{}{}{}", gw::log::Color::k_magenta, gw::log::LevelMessage::k_debug, gw::log::Color::k_reset);
+      }  
+
+      return {gw::log::LevelMessage::k_debug};
     }
-    default:
+    default: {
       return {};
+    }
   }
 }
+
+auto ComposeMessage(gw::log::Level p_level, std::string_view p_text) noexcept -> std::string {
+  const std::string k_log_level_tag = ColorizeLogLevelTag(p_level);
+
+  if (p_level == gw::log::Level::k_none) {
+    return std::string{p_text};
+  }
+
+  return std::format("{}: {}", k_log_level_tag, p_text);
+}
+
 }  // namespace
 // clang-format on
 

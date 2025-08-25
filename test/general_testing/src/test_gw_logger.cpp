@@ -6,6 +6,8 @@
 
 // Internal libraries
 #include "../../../include/gw_logger.hpp"
+#include "../../../src/include/gw_color.hpp"
+#include "../../../src/include/gw_level_message.hpp"
 
 // Tests
 TEST(Logger, ConfirmingDefaultInitialization) {
@@ -39,15 +41,13 @@ TEST(Logger, LogMessages) {
   error_msg.SetText("Error message");
   error_msg.SetLogLevel(gw::log::Level::k_error);
 
-  // This following message shouldn't be displayed.
-  // Reason is that the logger log level is lower then needed for the debug
-  // message to be displayed.
   gw::log::Message debug_msg{};
   debug_msg.SetText("Debug message");
   debug_msg.SetLogLevel(gw::log::Level::k_debug);
 
   gw::log::Logger logger{};
-  logger.SetLogLevel(gw::log::Level::k_error);
+  // If I were to the log level to k_error, the debug_msg wouldn't be logged
+  logger.SetLogLevel(gw::log::Level::k_debug);
 
   std::ostringstream testing_output_stream{};
 
@@ -59,12 +59,23 @@ TEST(Logger, LogMessages) {
 
   std::ostringstream expected_output_stream{};
 
-  // clang-format off
   expected_output_stream << "Plain message" << '\n'
-                         << gw::log::LevelMessage::k_info << ": " << "Info message" << '\n'
-                         << gw::log::LevelMessage::k_warning << ": " << "Warning message" << '\n'
-                         << gw::log::LevelMessage::k_error << ": " << "Error message" << '\n';
-  // clang-format on
+                         << gw::log::Color::k_cyan
+                         << gw::log::LevelMessage::k_info
+                         << gw::log::Color::k_reset << ": "
+                         << "Info message" << '\n'
+                         << gw::log::Color::k_yellow
+                         << gw::log::LevelMessage::k_warning
+                         << gw::log::Color::k_reset << ": "
+                         << "Warning message" << '\n'
+                         << gw::log::Color::k_red
+                         << gw::log::LevelMessage::k_error
+                         << gw::log::Color::k_reset << ": "
+                         << "Error message" << '\n'
+                         << gw::log::Color::k_magenta
+                         << gw::log::LevelMessage::k_debug
+                         << gw::log::Color::k_reset << ": "
+                         << "Debug message" << '\n';
 
   EXPECT_EQ(expected_output_stream.str(), testing_output_stream.str());
 }

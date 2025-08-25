@@ -26,8 +26,12 @@ set(lib_src
 )
 
 # Library header directories
-set(lib_includes
+set(public_lib_includes
 	include
+)
+
+set(private_lib_includes
+	src/include
 )
 
 # Library setup
@@ -42,7 +46,10 @@ else()
 endif()
 
 target_compile_options(gw_log_system PRIVATE ${error_flags})
-target_include_directories(gw_log_system PUBLIC ${lib_includes})
+target_include_directories(gw_log_system
+	PUBLIC ${public_lib_includes}
+	PRIVATE ${private_lib_includes}
+)
 
 # Tests category
 if (BUILD_TESTS)
