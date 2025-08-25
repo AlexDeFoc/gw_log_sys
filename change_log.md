@@ -10,7 +10,7 @@
 |1    |1    |13   |Release          |
 |1    |2    |101  |Snapshot         |
 
-|Changes               |Notes|
+|Changes               |Notes                                   |
 |----------------------|----------------------------------------|
 |Removed...            |It causing issues with...               |
 |Added...              |Now we can use it for....               |
