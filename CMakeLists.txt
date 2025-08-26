@@ -1,10 +1,10 @@
 # CMake setup
 cmake_minimum_required(VERSION 4.1.0)
-project(gw_log_system CXX)
+project(gw_log_sys CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # C++ setup
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -36,17 +36,17 @@ set(private_lib_includes
 
 # Library setup
 if (BUILD_STATIC_LIBRARY)
-	add_library(gw_log_system STATIC ${lib_src})
-	target_compile_definitions(gw_log_system PUBLIC DontBuildDll)
+	add_library(gw_log_sys STATIC ${lib_src})
+	target_compile_definitions(gw_log_sys PUBLIC DontBuildDll)
 else()
-	add_library(gw_log_system SHARED ${lib_src})
+	add_library(gw_log_sys SHARED ${lib_src})
 	if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-		target_compile_definitions(gw_log_system PRIVATE BuildDll)
+		target_compile_definitions(gw_log_sys PRIVATE BuildDll)
 	endif()
 endif()
 
-target_compile_options(gw_log_system PRIVATE ${error_flags})
-target_include_directories(gw_log_system
+target_compile_options(gw_log_sys PRIVATE ${error_flags})
+target_include_directories(gw_log_sys
 	PUBLIC ${public_lib_includes}
 	PRIVATE ${private_lib_includes}
 )
@@ -73,11 +73,11 @@ if (BUILD_TESTS)
 	FetchContent_MakeAvailable(googletest)
 
 	# Tests setup
-	add_executable(gw_log_system_tests ${test_src})
-	target_compile_options(gw_log_system_tests PRIVATE ${error_flags})
-	target_link_libraries(gw_log_system_tests PRIVATE gw_log_system GTest::gtest_main)
-	target_include_directories(gw_log_system_tests PUBLIC ${test_includes})
+	add_executable(gw_log_sys_tests ${test_src})
+	target_compile_options(gw_log_sys_tests PRIVATE ${error_flags})
+	target_link_libraries(gw_log_sys_tests PRIVATE gw_log_sys GTest::gtest_main)
+	target_include_directories(gw_log_sys_tests PUBLIC ${test_includes})
 
 	include(GoogleTest)
-	gtest_discover_tests(gw_log_system_tests)
+	gtest_discover_tests(gw_log_sys_tests)
 endif()

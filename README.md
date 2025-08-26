@@ -1,5 +1,5 @@
 # Logging system for gameWatch
-A clean, portable, modern C++ 23 library
+A clean, portable, modern C++ 20 library
 
 ## Features
 * Ability to log 'messages'
