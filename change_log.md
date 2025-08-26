@@ -6,8 +6,7 @@
 
 |Major|Minor|Patch|Release type     |
 |-----|-----|-----|-----------------|
-|1    |0    |3    |Release candidate|
-|1    |1    |13   |Release          |
+|1    |1    |2   |Release          |
 |1    |2    |101  |Snapshot         |
 
 |Changes               |Notes                                   |
@@ -50,10 +49,6 @@ forgotten to patch issues or issues introduced in the last release.
 ##### Release
 This release is 99% bug free, and destined to be the one uses for most cases.
 
-##### Release candidate
-This release almost ready to be released but hasn't yet been verified on certain
-platforms, configurations or some bugs/issues haven't been yet fixed
-
 ##### Snapshot
 This release is the latest version available (ussualy).
 
@@ -68,7 +63,7 @@ release candidate or release.
 ```
 ==========
 2 | 2025-aug-26 | 01:03 | Sava Alexandru-Andrei
-1.1.0R
+1.1.0
 ~~~~~~~~~~
 * CMakeLists.txt: changed tests to be build by default
 
@@ -87,7 +82,7 @@ Processing, thus being able to render colored text even on cmd
 
 ==========
 1 | 2025-aug-25 | 19:35 | Sava Alexandru-Andrei
-1.0.0R
+1.0.0
 ~~~~~~~~~~
 * Made the library | Finished it, but I plan to add really soon color to the log
 level messages segment e.g. [INFO], [ERROR]...
