@@ -62,6 +62,27 @@ release candidate or release.
 ## Log entries
 ```
 ==========
+6 | 2025-aug-26 | 13:03 | Sava Alexandru-Andrei
+1.2.0
+~~~~~~~~~~
+* Added the ability to initialize the logger with a log level
+
+* Changed default log level for logger from k_info to k_none. This was changed
+so that you have to either init with a certain log level or set it manually
+using the SetLogLevel function.
+
+* Changed in all headers the macro from _GW_LOG_SYSTEM... to _GW_LOG_SYS...
+==========
+
+==========
+5 | 2025-aug-26 | 11:47 | Sava Alexandru-Andrei
+1.1.1
+~~~~~~~~~~
+* Changed scripts to be able to compile with the new changes from gw_log_system
+to gw_log_sys
+==========
+
+==========
 4 | 2025-aug-26 | 11:37 | Sava Alexandru-Andrei
 1.1.1
 ~~~~~~~~~~

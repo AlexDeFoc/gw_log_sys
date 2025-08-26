@@ -16,6 +16,7 @@ namespace gw::log {
 class Logger {
  public:
   GW_EXPOSE_TO_DLL Logger() noexcept;
+  GW_EXPOSE_TO_DLL explicit Logger(gw::log::Level p_level) noexcept;
 
   [[nodiscard]] GW_EXPOSE_TO_DLL auto GetLogLevel() const noexcept
       -> gw::log::Level;

@@ -13,7 +13,13 @@
 TEST(Logger, ConfirmingDefaultInitialization) {
   gw::log::Logger logger{};
 
-  EXPECT_EQ(logger.GetLogLevel(), gw::log::Level::k_info);
+  EXPECT_EQ(logger.GetLogLevel(), gw::log::Level::k_none);
+}
+
+TEST(Logger, InitializeWithLogLevel) {
+  gw::log::Logger logger{gw::log::Level::k_warning};
+
+  EXPECT_EQ(logger.GetLogLevel(), gw::log::Level::k_warning);
 }
 
 TEST(Logger, ConfigureLogger) {

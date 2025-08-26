@@ -113,7 +113,10 @@ auto ComposeMessage(gw::log::Level p_level, std::string_view p_text) noexcept ->
 
 // Implementation
 // Constructors
-gw::log::Logger::Logger() noexcept : m_log_level{gw::log::Level::k_info} {}
+gw::log::Logger::Logger() noexcept : m_log_level{gw::log::Level::k_none} {}
+
+gw::log::Logger::Logger(gw::log::Level p_level) noexcept
+    : m_log_level{p_level} {}
 
 // Getters
 auto gw::log::Logger::GetLogLevel() const noexcept -> gw::log::Level {
