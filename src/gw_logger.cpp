@@ -1,6 +1,9 @@
 // Subject being implemented
 #include "../include/gw_logger.hpp"
 
+// Standard C++ libraries
+#include <format>
+
 // OS dependent code
 // Windows code
 #ifdef _WIN32

@@ -62,6 +62,14 @@ release candidate or release.
 ## Log entries
 ```
 ==========
+4 | 2025-aug-26 | 11:37 | Sava Alexandru-Andrei
+1.1.1
+~~~~~~~~~~
+* Adapted code by adding <format> in logger after the lowering of the C++
+compilation version from C++23 to C++20
+==========
+
+==========
 3 | 2025-aug-26 | 11:13 | Sava Alexandru-Andrei
 1.1.0
 ~~~~~~~~~~
