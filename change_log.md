@@ -62,6 +62,13 @@ release candidate or release.
 ## Log entries
 ```
 ==========
+8 | 2025-aug-26 | 16:27 | Sava Alexandru-Andrei
+1.3.1
+~~~~~~~~~~
+* Changed all headers to use #pragma once
+==========
+
+==========
 7 | 2025-aug-26 | 13:26 | Sava Alexandru-Andrei
 1.3.0
 ~~~~~~~~~~
@@ -79,7 +86,8 @@ char*
 so that you have to either init with a certain log level or set it manually
 using the SetLogLevel function.
 
-* Changed in all headers the macro from _GW_LOG_SYSTEM... to _GW_LOG_SYS...
+* Changed in all headers the macro from _GW_LOG_SYSTEM... to _GW_LOG_SYS....
+Actually forgot to do this, but now it's not necessary since change id #8
 ==========
 
 ==========

@@ -1,5 +1,4 @@
-#ifndef _GW_LOG_SYSTEM__MESSAGE_HPP_
-#define _GW_LOG_SYSTEM__MESSAGE_HPP_
+#pragma once
 
 // Standard C++ libraries
 #include <string>
@@ -36,5 +35,3 @@ class Message {
 };
 
 }  // namespace gw::log
-
-#endif  // _GW_LOG_SYSTEM__MESSAGE_HPP_

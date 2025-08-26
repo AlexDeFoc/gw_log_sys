@@ -1,5 +1,4 @@
-#ifndef _GW_LOG_SYSTEM__LOGGER_HPP_
-#define _GW_LOG_SYSTEM__LOGGER_HPP_
+#pragma once
 
 // Standard C++ libraries
 #include <iostream>
@@ -33,5 +32,3 @@ class Logger {
 };
 
 }  // namespace gw::log
-
-#endif  // _GW_LOG_SYSTEM__LOGGER_HPP_
