@@ -148,12 +148,12 @@ $files_to_copy = @(
 switch ($compiler) {
   'clang_ninja' {
     if ($link_type -eq 'static') {
-      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'gw_log_system.lib')
+      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'gw_log_sys.lib')
       $files_to_copy += $lib_filepath
     }
     elseif ($link_type -eq 'dynamic') {
-      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'gw_log_system.lib')
-      $dll_filepath = [System.IO.Path]::Combine($build_dir, 'gw_log_system.dll')
+      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'gw_log_sys.lib')
+      $dll_filepath = [System.IO.Path]::Combine($build_dir, 'gw_log_sys.dll')
       $files_to_copy += $lib_filepath
       $files_to_copy += $dll_filepath
     }
@@ -162,12 +162,12 @@ switch ($compiler) {
   }
   'gcc_ninja' {
     if ($link_type -eq 'static') {
-      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'libgw_log_system.a')
+      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'libgw_log_sys.a')
       $files_to_copy += $lib_filepath
     }
     elseif ($link_type -eq 'dynamic') {
-      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'libgw_log_system.dll.a')
-      $dll_filepath = [System.IO.Path]::Combine($build_dir, 'libgw_log_system.dll')
+      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'libgw_log_sys.dll.a')
+      $dll_filepath = [System.IO.Path]::Combine($build_dir, 'libgw_log_sys.dll')
       $files_to_copy += $lib_filepath
       $files_to_copy += $dll_filepath
     }
@@ -176,12 +176,12 @@ switch ($compiler) {
   }
   'msvc' {
     if ($link_type -eq 'static') {
-      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'Release', 'gw_log_system.lib')
+      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'Release', 'gw_log_sys.lib')
       $files_to_copy += $lib_filepath
     }
     elseif ($link_type -eq 'dynamic') {
-      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'Release', 'gw_log_system.lib')
-      $dll_filepath = [System.IO.Path]::Combine($build_dir, 'Release', 'gw_log_system.dll')
+      $lib_filepath = [System.IO.Path]::Combine($build_dir, 'Release', 'gw_log_sys.lib')
+      $dll_filepath = [System.IO.Path]::Combine($build_dir, 'Release', 'gw_log_sys.dll')
       $files_to_copy += $lib_filepath
       $files_to_copy += $dll_filepath
     }
