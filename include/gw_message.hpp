@@ -18,6 +18,7 @@ class Message {
   GW_EXPOSE_TO_DLL Message() noexcept;
 
   GW_EXPOSE_TO_DLL void SetText(const char* p_text) noexcept;
+  GW_EXPOSE_TO_DLL void SetText(const std::string& p_text) noexcept;
   GW_EXPOSE_TO_DLL void SetLogLevel(gw::log::Level p_level) noexcept;
 
   [[nodiscard]] GW_EXPOSE_TO_DLL auto GetText() const noexcept

@@ -20,3 +20,20 @@ TEST(Message, ConfiguringMessage) {
   EXPECT_TRUE(msg.GetText() == "Testing message");
   EXPECT_EQ(msg.GetLogLevel(), gw::log::Level::k_info);
 }
+
+TEST(Message, SetTextUsingRawString) {
+  gw::log::Message msg{};
+
+  msg.SetText("Testing message");
+
+  EXPECT_TRUE(msg.GetText() == "Testing message");
+}
+
+TEST(Message, SetTextUsingStandardString) {
+  gw::log::Message msg{};
+
+  const std::string k_text{"Testing message"};
+  msg.SetText(k_text);
+
+  EXPECT_TRUE(msg.GetText() == "Testing message");
+}

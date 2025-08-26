@@ -62,6 +62,14 @@ release candidate or release.
 ## Log entries
 ```
 ==========
+7 | 2025-aug-26 | 13:26 | Sava Alexandru-Andrei
+1.3.0
+~~~~~~~~~~
+* Added ability to set text for a message using a std::string, not just const
+char*
+==========
+
+==========
 6 | 2025-aug-26 | 13:03 | Sava Alexandru-Andrei
 1.2.0
 ~~~~~~~~~~

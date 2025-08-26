@@ -15,7 +15,11 @@ auto gw::log::Message::GetLogLevel() const noexcept -> gw::log::Level {
 }
 
 // Setters
-void gw::log::Message::SetText(const char *p_text) noexcept {
+void gw::log::Message::SetText(const char* p_text) noexcept {
+  this->m_text = p_text;
+}
+
+void gw::log::Message::SetText(const std::string& p_text) noexcept {
   this->m_text = p_text;
 }
 
