@@ -50,7 +50,7 @@ Choose & download the right file.
 
 ## Notes
 ### C++ Version
-The project is set to compile using the C++ 23 version. It may be possible to compile using a older version of C++ but i don't guarrantee.
+The project is set to compile using the C++ 20 version. It may be possible to compile using a older version of C++ but i don't guarrantee.
 
 ### Tested on list
 The list refers to what platforms, using what compilers, ... , and it works on those computers.
