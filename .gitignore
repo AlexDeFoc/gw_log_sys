@@ -1,0 +1,7 @@
+# Building process
+build/
+output/
+scripts/*/cmake.conf
+
+# Lsp temporary files
+.cache/

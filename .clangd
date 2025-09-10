@@ -1,0 +1,9 @@
+InlayHints:
+  Enabled: No
+
+Diagnostics:
+  UnusedIncludes: false
+
+CompileFlags:
+  Add: 
+    - -std=c++23

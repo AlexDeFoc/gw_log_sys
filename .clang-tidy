@@ -1,0 +1,57 @@
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  google-*,
+  hicpp-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -google-readability-todo,
+  -modernize-avoid-c-arrays,
+  -modernize-use-auto,
+  -modernize-use-trailing-return-type,
+  -portability-avoid-pragma-once,
+  -portability-restrict-system-includes,
+  -readability-convert-member-functions-to-static,
+  -readability-identifier-length,
+  -google-readability-namespace-comments,
+  -misc-use-internal-linkage,
+  -readability-redundant-member-init,
+  -google-build-using-namespace,
+  -readability-redundant-access-specifiers,
+  -misc-use-anonymous-namespace,
+  -google-readability-braces-around-statements,
+  -readability-braces-around-statements,
+  -hicpp-braces-around-statements
+
+CheckOptions:
+# Case convention
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+
+  - key: readability-identifier-naming.MethodCase
+    value: camelBack
+
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+
+  # Prefixes
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: m_
+
+HeaderFilterRegex: '.*\.(cpp|hpp)$'
+
+FormatStyle: none
