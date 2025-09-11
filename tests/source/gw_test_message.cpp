@@ -43,3 +43,16 @@ TEST(Message, ChangingShouldColorLogLevelMsgStatus)
 
     EXPECT_EQ(msg.getShouldColorLogLevelMessage(), false);
 }
+
+TEST(Message, ConfigureInOneGo)
+{
+    gw::log::Message msg{};
+
+    msg.configure({.text = "New message text",
+                   .log_level = gw::log::LogLevel::Info,
+                   .should_color_log_level_message = true});
+
+    EXPECT_EQ(msg.getText(), "New message text");
+    EXPECT_EQ(msg.getLogLevel(), gw::log::LogLevel::Info);
+    EXPECT_EQ(msg.getShouldColorLogLevelMessage(), true);
+}

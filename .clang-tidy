@@ -29,7 +29,8 @@ Checks: >
   -misc-use-anonymous-namespace,
   -google-readability-braces-around-statements,
   -readability-braces-around-statements,
-  -hicpp-braces-around-statements
+  -hicpp-braces-around-statements,
+  -misc-non-private-member-variables-in-classes
 
 CheckOptions:
 # Case convention

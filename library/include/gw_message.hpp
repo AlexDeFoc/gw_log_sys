@@ -12,7 +12,16 @@
 #include "./gw_log_levels.hpp"
 
 namespace gw::log {
-class Message {
+struct MessageConfig
+{
+public:
+    std::string text;
+    gw::log::LogLevel log_level;
+    bool should_color_log_level_message;
+};
+
+class Message
+{
 public:
     using TextType = std::string;
 
@@ -26,14 +35,17 @@ public:
     GW_LOG_SYS_API Message() noexcept;
 
 public:
-[[nodiscard]] GW_LOG_SYS_API auto getText() const noexcept -> std::string_view;
-[[nodiscard]] GW_LOG_SYS_API auto getLogLevel() const noexcept -> gw::log::LogLevel;
-[[nodiscard]] GW_LOG_SYS_API auto getLogLevelMessage() const noexcept -> std::string_view;
-[[nodiscard]] GW_LOG_SYS_API auto getShouldColorLogLevelMessage() const noexcept -> bool;
+    [[nodiscard]] GW_LOG_SYS_API auto getText() const noexcept -> std::string_view;
+    [[nodiscard]] GW_LOG_SYS_API auto getLogLevel() const noexcept -> gw::log::LogLevel;
+    [[nodiscard]] GW_LOG_SYS_API auto getLogLevelMessage() const noexcept -> std::string_view;
+    [[nodiscard]] GW_LOG_SYS_API auto getShouldColorLogLevelMessage() const noexcept -> bool;
 
 public:
-GW_LOG_SYS_API auto setText(std::string_view text) noexcept -> void;
-GW_LOG_SYS_API auto setLogLevel(gw::log::LogLevel log_level) noexcept -> void;
-GW_LOG_SYS_API auto setShouldColorLogLevelMessage(bool should_color) noexcept -> void;
+    GW_LOG_SYS_API auto setText(std::string_view text) noexcept -> void;
+    GW_LOG_SYS_API auto setLogLevel(gw::log::LogLevel log_level) noexcept -> void;
+    GW_LOG_SYS_API auto setShouldColorLogLevelMessage(bool should_color) noexcept -> void;
+
+public:
+    GW_LOG_SYS_API auto configure(const MessageConfig& msg_cfg) noexcept -> void;
 };
 }

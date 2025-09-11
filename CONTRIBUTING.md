@@ -224,7 +224,7 @@ std::uint64_t g_title_lenght
 const char* g_title
 ```
 
-* Static member variables (struct and class only)
+* Static variables (global, inside struct/class, inside functions)
 
 **"s\_"**
 

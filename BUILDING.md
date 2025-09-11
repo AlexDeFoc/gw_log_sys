@@ -53,6 +53,7 @@ Git - 2.51.0
 ### Going inside the build folder and finding the build library and optionally if previously wished to build tests, the tests executable
 
 > cd ..
+
 > cd build
 
 ## Maintainer

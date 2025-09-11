@@ -59,3 +59,11 @@ auto gw::log::Message::setShouldColorLogLevelMessage(bool should_color) noexcept
 {
     this->m_should_color_log_level_message.store(should_color, std::memory_order_relaxed);
 }
+
+auto gw::log::Message::configure(const gw::log::MessageConfig& msg_cfg) noexcept -> void
+{
+    std::lock_guard<std::mutex> lock(this->m_mutex);
+    this->m_text = msg_cfg.text;
+    this->m_log_level.store(msg_cfg.log_level, std::memory_order_relaxed);
+    this->m_should_color_log_level_message.store(msg_cfg.should_color_log_level_message, std::memory_order_relaxed);
+}

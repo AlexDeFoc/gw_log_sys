@@ -84,7 +84,7 @@ TEST(LocalLogger, PrintingMessageWithNewLineWithoutColor)
     msg.setLogLevel(gw::log::LogLevel::Info);
 
     gw::log::Logger logger{};
-    logger.shouldColorLogLevelMsg(false);
+    logger.setShouldColorLogLevelMsg(false);
 
     logger.setLogLevel(gw::log::LogLevel::Error);
 
@@ -145,6 +145,17 @@ TEST(LocalLogger, PrintingMessageWithLogLevelLowerThenMaxOfLogger)
     std::ostringstream expected_testing_sink{};
 
     EXPECT_EQ(testing_sink.str(), expected_testing_sink.str());
+}
+
+TEST(LocalLogger, ConfigureLoggerInOneGo)
+{
+    gw::log::Logger logger{};
+
+    logger.configure({.log_level = gw::log::LogLevel::Error,
+                      .should_color_log_level_message = true});
+
+    EXPECT_EQ(logger.getLogLevel(), gw::log::LogLevel::Error);
+    EXPECT_EQ(logger.getShouldColorLogLevelMessageStatus(), true);
 }
 
 TEST(SingletonLogger, NewLoggerHoldsDefaultLogLevel)

@@ -12,24 +12,24 @@ enum class UsingAnsiColorsStatus: std::uint8_t { Enabled, Failed, NotAvailable, 
 // Helper functions
 [[nodiscard]] auto shouldUseAnsiColorsInTerminal() -> UsingAnsiColorsStatus
 {
-    static UsingAnsiColorsStatus status = UsingAnsiColorsStatus::Unset;
+    static UsingAnsiColorsStatus s_status = UsingAnsiColorsStatus::Unset;
 
-    if (status == UsingAnsiColorsStatus::Enabled || status == UsingAnsiColorsStatus::NotAvailable)
-        return status;
+    if (s_status == UsingAnsiColorsStatus::Enabled || s_status == UsingAnsiColorsStatus::NotAvailable)
+        return s_status;
 
     HANDLE stdout_handle = GetStdHandle(STD_OUTPUT_HANDLE);
     if (stdout_handle == INVALID_HANDLE_VALUE)
     {
-        status = UsingAnsiColorsStatus::Failed;
-        return status;
+        s_status = UsingAnsiColorsStatus::Failed;
+        return s_status;
     }
 
     DWORD current_stdout_mode{};
     BOOL action_status = GetConsoleMode(stdout_handle, &current_stdout_mode);
     if (action_status == 0)
     {
-        status = UsingAnsiColorsStatus::Failed;
-        return status;
+        s_status = UsingAnsiColorsStatus::Failed;
+        return s_status;
     }
 
     current_stdout_mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
@@ -37,12 +37,12 @@ enum class UsingAnsiColorsStatus: std::uint8_t { Enabled, Failed, NotAvailable, 
     action_status = SetConsoleMode(stdout_handle, current_stdout_mode);
     if (action_status == 0)
     {
-        status = UsingAnsiColorsStatus::Failed;
-        return status;
+        s_status = UsingAnsiColorsStatus::Failed;
+        return s_status;
     }
 
-    status = UsingAnsiColorsStatus::Enabled;
-    return status;
+    s_status = UsingAnsiColorsStatus::Enabled;
+    return s_status;
 }
 #else
 
@@ -79,7 +79,7 @@ enum class UsingAnsiColorsStatus: std::uint8_t { Enabled, Failed, NotAvailable, 
 }
 
 // Class methods
-gw::log::Logger::Logger() noexcept : m_log_level{gw::log::LogLevel::None}, m_should_color_log_level_msg{true} {}
+gw::log::Logger::Logger() noexcept : m_log_level{gw::log::LogLevel::None}, m_should_color_log_level_message{true} {}
 
 auto gw::log::Logger::getLogLevel() const noexcept -> gw::log::LogLevel
 {
@@ -91,9 +91,9 @@ auto gw::log::Logger::setLogLevel(gw::log::LogLevel log_level) noexcept -> void
     this->m_log_level.store(log_level, std::memory_order_relaxed);
 }
 
-auto gw::log::Logger::shouldColorLogLevelMsg(bool should_it_color) noexcept -> void
+auto gw::log::Logger::setShouldColorLogLevelMsg(bool should_it_color) noexcept -> void
 {
-    this->m_should_color_log_level_msg.store(should_it_color, std::memory_order_relaxed);
+    this->m_should_color_log_level_message.store(should_it_color, std::memory_order_relaxed);
 }
 
 auto gw::log::Logger::print(const gw::log::Message& msg, std::ostream& output_stream) const noexcept -> void
@@ -106,7 +106,7 @@ auto gw::log::Logger::print(const gw::log::Message& msg, std::ostream& output_st
 
         std::string formatted_message{};
 
-        if (this->m_should_color_log_level_msg.load() && useAnsiColorsStatus == UsingAnsiColorsStatus::Enabled)
+        if (this->m_should_color_log_level_message.load() && useAnsiColorsStatus == UsingAnsiColorsStatus::Enabled)
         {
             const std::string coloredLogLevelMessage = colorLogLevelMessage(msg.getLogLevelMessage(), msg.getLogLevel());
             formatted_message =  std::format("{}: {}", coloredLogLevelMessage, msg.getText());
@@ -128,7 +128,7 @@ auto gw::log::Logger::println(const gw::log::Message& msg, std::ostream& output_
 
         std::string formatted_message{};
 
-        if (msg.getShouldColorLogLevelMessage() && this->m_should_color_log_level_msg.load() && useAnsiColorsStatus == UsingAnsiColorsStatus::Enabled)
+        if (msg.getShouldColorLogLevelMessage() && this->m_should_color_log_level_message.load() && useAnsiColorsStatus == UsingAnsiColorsStatus::Enabled)
         {
             const std::string coloredLogLevelMessage = colorLogLevelMessage(msg.getLogLevelMessage(), msg.getLogLevel());
             formatted_message =  std::format("{}: {}\n", coloredLogLevelMessage, msg.getText());
@@ -142,7 +142,19 @@ auto gw::log::Logger::println(const gw::log::Message& msg, std::ostream& output_
 
 auto gw::log::Logger::getHandle() noexcept -> gw::log::Logger::Handle&
 {
-    static gw::log::Logger::Handle logger_handle{};
+    static gw::log::Logger::Handle s_logger_handle{};
 
-    return logger_handle;
+    return s_logger_handle;
+}
+
+auto gw::log::Logger::getShouldColorLogLevelMessageStatus() const noexcept -> bool
+{
+    return this->m_should_color_log_level_message;
+}
+
+auto gw::log::Logger::configure(const gw::log::LoggerConfig& logger_config) noexcept -> void
+{
+    std::lock_guard<std::mutex> lock(this->m_mutex);
+    this->m_log_level.store(logger_config.log_level, std::memory_order_relaxed);
+    this->m_should_color_log_level_message.store(logger_config.should_color_log_level_message, std::memory_order_relaxed);
 }

@@ -10,13 +10,20 @@
 #include "./gw_message.hpp"
 
 namespace gw::log {
-class Logger {
+struct LoggerConfig
+{
+    gw::log::LogLevel log_level;
+    bool should_color_log_level_message;
+};
+
+class Logger
+{
 public:
     using Handle = Logger;
 private:
     mutable std::mutex m_mutex;
     std::atomic<gw::log::LogLevel> m_log_level;
-    std::atomic<bool> m_should_color_log_level_msg;
+    std::atomic<bool> m_should_color_log_level_message;
 
 public:
     GW_LOG_SYS_API Logger() noexcept;
@@ -28,15 +35,16 @@ public:
 
 public:
     [[nodiscard]] GW_LOG_SYS_API auto getLogLevel() const noexcept -> gw::log::LogLevel;
+    [[nodiscard]] GW_LOG_SYS_API static auto getHandle() noexcept -> Handle&;
+    [[nodiscard]] GW_LOG_SYS_API auto getShouldColorLogLevelMessageStatus() const noexcept -> bool;
 
 public:
     GW_LOG_SYS_API auto setLogLevel(gw::log::LogLevel log_level) noexcept -> void;
+    GW_LOG_SYS_API auto setShouldColorLogLevelMsg(bool should_it_color) noexcept -> void;
 
 public:
     GW_LOG_SYS_API auto println(const gw::log::Message& msg, std::ostream& output_stream = std::cout) const noexcept -> void;
     GW_LOG_SYS_API auto print(const gw::log::Message& msg, std::ostream& output_stream = std::cout) const noexcept -> void;
-    GW_LOG_SYS_API auto shouldColorLogLevelMsg(bool should_it_color) noexcept -> void;
-
-    [[nodiscard]] GW_LOG_SYS_API static auto getHandle() noexcept -> Handle&;
+    GW_LOG_SYS_API auto configure(const LoggerConfig& logger_config) noexcept -> void;
 };
 }
