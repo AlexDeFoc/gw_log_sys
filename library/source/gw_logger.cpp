@@ -47,7 +47,7 @@ enum class UsingAnsiColorsStatus: std::uint8_t { Enabled, Failed, NotAvailable, 
 #else
 
 // Helper functions
-[[nodiscard]] auto enableANSIColorsInWindowsTerminal() -> UsingAnsiColorsStatus { return UsingAnsiColorsStatus::Enabled; } // todo(alex): check on unix
+[[nodiscard]] auto shouldUseAnsiColorsInTerminal() -> UsingAnsiColorsStatus { return UsingAnsiColorsStatus::Enabled; } // todo(alex): check on unix
                                                                                                                            // if actually terminal supports
                                                                                                                            // or has enabled colors
 #endif

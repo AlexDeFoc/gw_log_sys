@@ -23,9 +23,9 @@
 #else
 
 // Helper functions
-[[nodiscard]] isColoredPrintingEnabledInTerminal() -> bool { return true; } // todo(alex): inspire from gw_logger.cpp for support for unix
+// todo(alex): inspire from gw_logger.cpp for support for unix
+[[nodiscard]] auto isColoredPrintingEnabledInTerminal() -> bool { return true; }
 #endif
-
 
 // Tests
 TEST(LocalLogger, NewLoggerHoldsDefaultLogLevel)

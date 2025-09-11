@@ -8,7 +8,7 @@ def main() -> None:
 
 def requestPlatformFromUser() -> None:
     prompt: str = "What platform are you on?"
-    options: list[str] = ["Windows"]
+    options: list[str] = ["Windows", "Linux"]
     platform_chosen: str = askUser(prompt, options)
 
     prompt: str = "What build system do you want to use?"
@@ -22,6 +22,11 @@ def requestPlatformFromUser() -> None:
             run([executable, str(current_script_folder_path / "cmake" / "windows" / "build_single_target.py")])
 
             run([executable, str(current_script_folder_path / "cmake" / "windows" / "pack_single_target.py")])
+    elif platform_chosen == "Linux":
+        if build_system_chosen == "CMake":
+            run([executable, str(current_script_folder_path / "cmake" / "linux" / "build_single_target.py")])
+
+            run([executable, str(current_script_folder_path / "cmake" / "linux" / "pack_single_target.py")])
 
 def askUser(prompt: str, options: list[str]) -> str:
     response: str = ""

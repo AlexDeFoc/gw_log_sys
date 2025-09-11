@@ -62,16 +62,15 @@ def main() -> None:
 
 CfgFileHeadersList: list[str] =  ["Host platform", "Toolchain", "Target architecture", "Build mode", "Library type", "Build tests status"]
 
-CfgFileValuesMapOfLists: dict[str, list[str]] = {"Host platform": ["Windows"],
-                                                 "Toolchain": ["Ninja (clang)", "Visual Studio 17 2022 (msvc)"],
+CfgFileValuesMapOfLists: dict[str, list[str]] = {"Host platform": ["Linux"],
+                                                 "Toolchain": ["Ninja (gcc)"],
                                                  "Target architecture": ["64-bit", "32-bit"],
                                                  "Build mode": ["Release", "Debug"],
                                                  "Library type": ["Static", "Shared"],
                                                  "Build tests status": ["Yes", "No"]}
 
-CfgFileValuesMapOfMap: dict[str, dict[str, str]] = {"Host platform": {"Windows": "Windows"},
-                                                    "Toolchain": {"Ninja (clang)": "Ninja (clang)",
-                                                                  "Visual Studio 17 2022 (msvc)": "Visual Studio 17 2022 (msvc)"},
+CfgFileValuesMapOfMap: dict[str, dict[str, str]] = {"Host platform": {"Linux": "Linux"},
+                                                    "Toolchain": {"Ninja (gcc)": "Ninja (gcc)"},
                                                     "Target architecture": {"64-bit": "64-bit", "32-bit": "32-bit"},
                                                     "Build mode": {"Release": "Release", "Debug": "Debug"},
                                                     "Library type": {"Static": "Static", "Shared": "Shared"},
@@ -87,33 +86,21 @@ def buildCMakeCmds(cmake_file_folder_path: Path, build_folder_path: Path, cfg_de
     cmake_configure_cmd: str = f"cmake -S \"{cmake_file_folder_path}\" -B \"{build_folder_path}\""
     cmake_build_cmd: str = f"cmake --build \"{build_folder_path}\""
 
-    if cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Ninja (clang)"]:
+    if cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Ninja (gcc)"]:
         cmake_configure_cmd += " -G Ninja"
-        cmake_configure_cmd += " -DCMAKE_CXX_COMPILER=clang++"
-    elif cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Visual Studio 17 2022 (msvc)"]:
-        cmake_configure_cmd += " -G \"Visual Studio 17 2022\""
+        cmake_configure_cmd += " -DCMAKE_CXX_COMPILER=g++"
 
-    if cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Ninja (clang)"]:
+    if cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Ninja (gcc)"]:
         if cfg_details["Target architecture"] == CfgFileValuesMapOfMap["Target architecture"]["64-bit"]:
             cmake_configure_cmd += " -DCMAKE_CXX_FLAGS=-m64"
         else:
             cmake_configure_cmd += " -DCMAKE_CXX_FLAGS=-m32"
-    elif cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Visual Studio 17 2022 (msvc)"]:
-        if cfg_details["Target architecture"] == CfgFileValuesMapOfMap["Target architecture"]["64-bit"]:
-            cmake_configure_cmd += " -A x64"
-        else:
-            cmake_configure_cmd += " -A Win32"
 
-    if cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Ninja (clang)"]:
+    if cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Ninja (gcc)"]:
         if cfg_details["Build mode"] == CfgFileValuesMapOfMap["Build mode"]["Release"]:
             cmake_configure_cmd += " -DCMAKE_BUILD_TYPE=Release"
         else:
             cmake_configure_cmd += " -DCMAKE_BUILD_TYPE=Debug"
-    elif cfg_details["Toolchain"] == CfgFileValuesMapOfMap["Toolchain"]["Visual Studio 17 2022 (msvc)"]:
-        if cfg_details["Build mode"] == CfgFileValuesMapOfMap["Build mode"]["Release"]:
-            cmake_build_cmd += " --config Release"
-        else:
-            cmake_build_cmd += " --config Debug"
 
     if cfg_details["Library type"] == CfgFileValuesMapOfMap["Library type"]["Static"]:
         cmake_configure_cmd += " -DBUILD_STATIC_LIB__GW_LOG_SYS=TRUE"
@@ -160,7 +147,7 @@ def askUserIfTheyWantToForceReconfigureProject() -> bool:
 
 def loadCfgDetailsFromFile(file_path: Path) -> dict[str, str]:
     configuration: dict[str, str] = {
-        "Host platform": "Windows",
+        "Host platform": "Linux",
         "Toolchain": "",
         "Target architecture": "",
         "Build mode": "",
@@ -216,7 +203,7 @@ def createNewCfgFile(file_path: Path, cfg_details: dict[str, str]) -> None:
 
 def askUserForCfgDetails() -> dict[str, str]:
     configuration: dict[str, str] = {
-        "Host platform": "Windows",
+        "Host platform": "Linux",
         "Toolchain": "",
         "Target architecture": "",
         "Build mode": "",
