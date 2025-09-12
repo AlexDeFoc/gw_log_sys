@@ -4,8 +4,8 @@ from subprocess import run
 
 def main() -> None:
     script_file_path: Final[Path] = Path(__file__)
-    assest_folder_path: Final[Path] = script_file_path.parents[2] / "assets"
-    temp_folder_path: Final[Path] = script_file_path.parents[2] / "temp"
+    assest_folder_path: Final[Path] = script_file_path.parents[1] / "assets"
+    temp_folder_path: Final[Path] = script_file_path.parents[1] / "temp"
     configurations_folder_path: Final[Path] = temp_folder_path / "configurations"
 
     # Loading assest stage
@@ -39,7 +39,6 @@ def main() -> None:
                                                   chosen_build_tests_status)
 
     output_folder_path: Path = temp_folder_path / "output"
-    distribute_folder_path: Path = temp_folder_path / "distribute"
 
     target_folder_path: Path = output_folder_path / target_folder_name
 
@@ -48,25 +47,25 @@ def main() -> None:
         print("[INFO]: Run the build script again.")
         exit(1)
 
-    print("[INFO]: Starting: Archiving target folder build from previous configuration.")
+    tests_executable_file_name: str = "gw_log_sys_tests.exe"
 
-    archive_file_path: Path = distribute_folder_path / f"{target_folder_name}.tar.gz"
+    tests_executable_file_path: Path = target_folder_path / tests_executable_file_name
 
-    archiveTargetFolder(archive_file_path, target_folder_path)
+    if not tests_executable_file_path.exists():
+        print("[ERROR]: Tests executable doesn't exist!")
+        print("[INFO]: Run the build script again.")
+        exit(1)
 
-    print(f"[INFO]: Finished: Archiving target folder. Archive can be found at: {archive_file_path}")
+    runTestsExecutable(tests_executable_file_path)
 
-def archiveTargetFolder(archive_file_path: Path, target_folder_path: Path) -> None:
-    if archive_file_path.exists():
-        archive_file_path.unlink()
-
-    run(["tar", "-czf", str(archive_file_path), "-C", str(target_folder_path.parent), target_folder_path.name], check=True)
+def runTestsExecutable(tests_executable_file_path: Path) -> None:
+    run(tests_executable_file_path)
 
 def getTargetFolderName(chosen_build_system: str, chosen_architecture: str,
                         chosen_generator: str, chosen_compiler: str,
                         chosen_build_mode: str, chosen_library_type: str,
                         chosen_build_test_status: str) -> str:
-    target_folder_name: str = "linux__"
+    target_folder_name: str = "windows__"
 
     target_folder_name += f"{chosen_build_system.replace(' ', '_').replace('-', '_')}__"
     target_folder_name += f"{chosen_architecture.replace(' ', '_').replace('-', '_')}__"

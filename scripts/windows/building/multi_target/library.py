@@ -83,10 +83,12 @@ def buildProjectAndCopyImportantFiles(project_name: str, tests_executable_file_n
 
                                 build_system_folder_path = getBuildSystemFolderPath(project_root_folder_path, build_system)
 
-                                commands_list = constructCommands(build_system_folder_path, build_folder_path,
+                                commands_list = constructCommands(build_system_folder_path,
+                                                                  build_folder_path,
                                                                   build_system, generator,
                                                                   compiler, architecture,
-                                                                  build_mode, library_type, build_tests_status)
+                                                                  build_mode, library_type,
+                                                                  build_tests_status)
 
                                 print(f"[INFO]: Starting building process for target no. \"{target_index}\" out of \"{total_targets_count}\"...")
                                 runCommands(build_system, commands_list)
@@ -100,7 +102,9 @@ def buildProjectAndCopyImportantFiles(project_name: str, tests_executable_file_n
 
                                 buildTargetFolder(target_folder_path)
 
-                                important_item_paths = getImportantItemPathsList(build_folder_path, library_type,
+                                important_item_paths = getImportantItemPathsList(build_folder_path,
+                                                                                 generator, compiler,
+                                                                                 library_type, build_mode,
                                                                                  build_tests_status, project_name,
                                                                                  tests_executable_file_name, headers_folder_path)
 
@@ -120,20 +124,41 @@ def copyImportantItemPathsToTargetFolder(important_item_paths: list[Path], targe
         else:
             copy2(item_path, target_folder_path)
 
-def getImportantItemPathsList(build_folder_path: Path, chosen_library_type: str,
+def getImportantItemPathsList(build_folder_path: Path,
+                              chosen_generator: str, chosen_compiler: str,
+                              chosen_library_type: str, chosen_build_mode: str,
                               chosen_build_tests_status: str, project_name: str,
                               tests_executable_file_name: str, headers_folder_path: Path) -> list[Path]:
     important_item_paths: list[Path] = []
 
-    if chosen_library_type == "Static":
-        important_item_paths.append(build_folder_path / f"lib{project_name}.a")
-    elif chosen_library_type == "Shared":
-        important_item_paths.append(build_folder_path / f"lib{project_name}.so")
+    if chosen_generator == "Visual Studio 2022":
+        if chosen_compiler == "MSVC":
+
+            build_mode_path_segment: str = ""
+
+            if chosen_build_mode == "Release":
+                build_mode_path_segment = "Release"
+            elif chosen_build_mode == "Debug":
+                build_mode_path_segment = "Debug"
+
+            important_item_paths.append(build_folder_path / f"{build_mode_path_segment}" / f"{project_name}.lib")
+
+            if chosen_library_type == "Shared":
+                important_item_paths.append(build_folder_path / f"{build_mode_path_segment}" / f"{project_name}.dll")
+
+            if chosen_build_tests_status == "Yes":
+                important_item_paths.append(build_folder_path / f"{build_mode_path_segment}" / f"{tests_executable_file_name}.exe")
+    elif chosen_generator == "Ninja":
+        if chosen_compiler == "Clang (msvc)":
+            important_item_paths.append(build_folder_path / f"{project_name}.lib")
+
+            if chosen_library_type == "Shared":
+                important_item_paths.append(build_folder_path / f"{project_name}.dll")
+
+            if chosen_build_tests_status == "Yes":
+                important_item_paths.append(build_folder_path / f"{tests_executable_file_name}.exe")
 
     important_item_paths.append(headers_folder_path)
-
-    if chosen_build_tests_status == "Yes":
-        important_item_paths.append(build_folder_path / tests_executable_file_name)
 
     return important_item_paths
 
@@ -144,7 +169,7 @@ def buildTargetFolder(target_folder_path: Path) -> None:
 def getTargetFolderName(chosen_build_system: str, chosen_architecture: str,
                         chosen_generator: str, chosen_compiler: str,
                         chosen_library_type: str) -> str:
-    target_folder_name: str = "linux__"
+    target_folder_name: str = "windows__"
 
     target_folder_name += f"{chosen_build_system.replace(' ', '_').replace('-', '_')}__"
     target_folder_name += f"{chosen_architecture.replace(' ', '_').replace('-', '_')}__"
@@ -181,84 +206,35 @@ def constructCommands(build_system_folder_path: Path,
         else:
             current_command += " -DBUILD_TESTS__GW_LOG_SYS=FALSE"
 
-        if chosen_generator == "Ninja":
+        if chosen_generator == "Visual Studio 2022":
+            current_command += " -G \"Visual Studio 17 2022\""
+
+            if chosen_compiler == "MSVC":
+                if chosen_architecture == "x86_64":
+                    current_command += " -A x64"
+                elif chosen_architecture == "i686":
+                    current_command += " -A Win32"
+
+                current_command += " -DCMAKE_CXX_FLAGS=\"/W4 /WX /permissive- /EHsc"
+
+                if chosen_build_mode == "Release":
+                    current_command += " /O2 /DNDEBUG"
+                elif chosen_build_mode == "Debug":
+                    current_command += " /Od /Zi"
+
+                current_command += "\""
+        elif chosen_generator == "Ninja":
             current_command += " -G Ninja"
 
-            if chosen_compiler == "Clang (gnu)":
+            if chosen_compiler == "Clang (msvc)":
                 current_command += " -DCMAKE_CXX_COMPILER=clang++"
 
                 current_command += " -DCMAKE_CXX_FLAGS=\"-Wall -Wextra -Werror -Wconversion -pedantic"
 
                 if chosen_architecture == "x86_64":
-                    current_command += " --target=x86_64-pc-linux-gnu"
+                    current_command += " --target=x86_64-pc-windows-msvc"
                 elif chosen_architecture == "i686":
-                    current_command += " --target=i686-pc-linux-gnu"
-
-                if chosen_build_mode == "Release":
-                    current_command += " -O2 -DNDEBUG"
-                elif chosen_build_mode == "Debug":
-                    current_command += " -O0 -g"
-
-                current_command += "\""
-
-                if chosen_build_mode == "Release":
-                    current_command += " -DCMAKE_BUILD_TYPE=Release"
-                elif chosen_build_mode == "Debug":
-                    current_command += " -DCMAKE_BUILD_TYPE=Debug"
-            elif chosen_compiler == "GCC":
-                current_command += " -DCMAKE_CXX_COMPILER=g++"
-
-                current_command += " -DCMAKE_CXX_FLAGS=\"-Wall -Wextra -Werror -Wconversion -pedantic"
-
-                if chosen_architecture == "x86_64":
-                    current_command += " -m64"
-                elif chosen_architecture == "i686":
-                    current_command += " -m32"
-
-                if chosen_build_mode == "Release":
-                    current_command += " -O2 -DNDEBUG"
-                elif chosen_build_mode == "Debug":
-                    current_command += " -O0 -g"
-
-                current_command += "\""
-
-                if chosen_build_mode == "Release":
-                    current_command += " -DCMAKE_BUILD_TYPE=Release"
-                elif chosen_build_mode == "Debug":
-                    current_command += " -DCMAKE_BUILD_TYPE=Debug"
-        elif chosen_generator == "Make":
-            current_command += " -G \"Unix Makefiles\""
-
-            if chosen_compiler == "Clang (gnu)":
-                current_command += " -DCMAKE_CXX_COMPILER=clang++"
-
-                current_command += " -DCMAKE_CXX_FLAGS=\"-Wall -Wextra -Werror -Wconversion -pedantic"
-
-                if chosen_architecture == "x86_64":
-                    current_command += " --target=x86_64-pc-linux-gnu"
-                elif chosen_architecture == "i686":
-                    current_command += " --target=i686-pc-linux-gnu"
-
-                if chosen_build_mode == "Release":
-                    current_command += " -O2 -DNDEBUG"
-                elif chosen_build_mode == "Debug":
-                    current_command += " -O0 -g"
-
-                current_command += "\""
-
-                if chosen_build_mode == "Release":
-                    current_command += " -DCMAKE_BUILD_TYPE=Release"
-                elif chosen_build_mode == "Debug":
-                    current_command += " -DCMAKE_BUILD_TYPE=Debug"
-            elif chosen_compiler == "GCC":
-                current_command += " -DCMAKE_CXX_COMPILER=g++"
-
-                current_command += " -DCMAKE_CXX_FLAGS=\"-Wall -Wextra -Werror -Wconversion -pedantic"
-
-                if chosen_architecture == "x86_64":
-                    current_command += " -m64"
-                elif chosen_architecture == "i686":
-                    current_command += " -m32"
+                    current_command += " --target=i686-pc-windows-msvc"
 
                 if chosen_build_mode == "Release":
                     current_command += " -O2 -DNDEBUG"
@@ -281,15 +257,16 @@ def constructCommands(build_system_folder_path: Path,
 
         current_command = f"cmake --build \"{str(build_folder_path)}\""
 
-        if chosen_generator == "Ninja":
-            if chosen_compiler == "Clang (gnu)":
-                current_command += f" -- -j{max_threads}"
-            elif chosen_compiler == "GCC":
-                current_command += f" -- -j{max_threads}"
-        elif chosen_generator == "Make":
-            if chosen_compiler == "Clang (gnu)":
-                current_command += f" -- -j{max_threads}"
-            elif chosen_compiler == "GCC":
+        if chosen_generator == "Visual Studio 2022":
+            if chosen_compiler == "MSVC":
+                if chosen_build_mode == "Release":
+                    current_command += " --config Release"
+                elif chosen_build_mode == "Debug":
+                    current_command += " --config Debug"
+
+                current_command += f" -- /m:{max_threads}"
+        elif chosen_generator == "Ninja":
+            if chosen_compiler == "Clang (msvc)":
                 current_command += f" -- -j{max_threads}"
 
         commands_list["Building"] = current_command

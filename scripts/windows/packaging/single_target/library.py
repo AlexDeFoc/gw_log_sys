@@ -50,7 +50,7 @@ def main() -> None:
 
     print("[INFO]: Starting: Archiving target folder build from previous configuration.")
 
-    archive_file_path: Path = distribute_folder_path / f"{target_folder_name}.tar.gz"
+    archive_file_path: Path = distribute_folder_path / f"{target_folder_name}.zip"
 
     archiveTargetFolder(archive_file_path, target_folder_path)
 
@@ -60,13 +60,13 @@ def archiveTargetFolder(archive_file_path: Path, target_folder_path: Path) -> No
     if archive_file_path.exists():
         archive_file_path.unlink()
 
-    run(["tar", "-czf", str(archive_file_path), "-C", str(target_folder_path.parent), target_folder_path.name], check=True)
+    run(["powershell", "-Command", f"Compress-Archive -Path \"{target_folder_path}\" -DestinationPath \"{archive_file_path}\" -Force"], check=True)
 
 def getTargetFolderName(chosen_build_system: str, chosen_architecture: str,
                         chosen_generator: str, chosen_compiler: str,
                         chosen_build_mode: str, chosen_library_type: str,
                         chosen_build_test_status: str) -> str:
-    target_folder_name: str = "linux__"
+    target_folder_name: str = "windows__"
 
     target_folder_name += f"{chosen_build_system.replace(' ', '_').replace('-', '_')}__"
     target_folder_name += f"{chosen_architecture.replace(' ', '_').replace('-', '_')}__"

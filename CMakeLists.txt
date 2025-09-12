@@ -40,12 +40,13 @@ if (BUILD_TESTS__GW_LOG_SYS)
 	)
 	FetchContent_MakeAvailable(googletest)
 
-    # Disable GoogleTest warnings
-    #if (MSVC)
-    #elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        #target_compile_options(gtest PRIVATE -Wno-character-conversion)
-        #target_compile_options(gtest_main PRIVATE -Wno-character-conversion)
-    #endif()
+    if (MSVC)
+        target_compile_options(gtest PRIVATE /W0)
+        target_compile_options(gtest_main PRIVATE /W0)
+    else()
+        target_compile_options(gtest PRIVATE -w)
+        target_compile_options(gtest_main PRIVATE -w)
+    endif()
 
 	# Tests setup
     add_executable(gw_log_sys_tests ${TESTS_CPP_FILES__GW_LOG_SYS})

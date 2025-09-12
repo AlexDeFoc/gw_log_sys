@@ -60,30 +60,30 @@ def archiveAllTargetFolders(output_folder_path: Path, distribute_folder_path: Pa
         for generator in generators_supported[build_system]:
             for compiler in compilers_supported[generator]:
                 for architecture in architectures_supported:
-                        for library_type in library_types_supported:
-                            target_folder_name = getTargetFolderName(build_system, architecture,
-                                                                     generator, compiler,
-                                                                     library_type)
+                    for library_type in library_types_supported:
+                        target_folder_name = getTargetFolderName(build_system, architecture,
+                                                                 generator, compiler,
+                                                                 library_type)
 
-                            archive_file_path = distribute_folder_path / f"{target_folder_name}.tar.gz"
+                        archive_file_path = distribute_folder_path / f"{target_folder_name}.zip"
 
-                            target_folder_path = output_folder_path / target_folder_name
+                        target_folder_path = output_folder_path / target_folder_name
 
-                            if archive_file_path.exists():
-                                archive_file_path.unlink()
+                        if archive_file_path.exists():
+                            archive_file_path.unlink()
 
-                            print(f"[INFO]: Starting: Archiving target folder no. \"{target_index}\" out of \"{total_targets_count}\"...")
+                        print(f"[INFO]: Starting: Archiving target folder no. \"{target_index}\" out of \"{total_targets_count}\"...")
 
-                            run(["tar", "-czf", str(archive_file_path), "-C", str(target_folder_path.parent), target_folder_name], check=True)
+                        run(["powershell", "-Command", f"Compress-Archive -Path \"{target_folder_path}\" -DestinationPath \"{archive_file_path}\" -Force"], check=True)
 
-                            print(f"[INFO]: Finished: Archiving target folder no. \"{target_index}\" out of \"{total_targets_count}\".")
+                        print(f"[INFO]: Finished: Archiving target folder no. \"{target_index}\" out of \"{total_targets_count}\".")
 
-                            target_index += 1
+                        target_index += 1
 
 def getTargetFolderName(chosen_build_system: str, chosen_architecture: str,
                         chosen_generator: str, chosen_compiler: str,
                         chosen_library_type: str) -> str:
-    target_folder_name: str = "linux__"
+    target_folder_name: str = "windows__"
 
     target_folder_name += f"{chosen_build_system.replace(' ', '_').replace('-', '_')}__"
     target_folder_name += f"{chosen_architecture.replace(' ', '_').replace('-', '_')}__"

@@ -1,8 +1,12 @@
-# Building process
 build/
+
 scripts/linux/temp/configurations/*
 scripts/linux/temp/distribute/*
 scripts/linux/temp/output/*
+
+scripts/windows/temp/configurations/*
+scripts/windows/temp/distribute/*
+scripts/windows/temp/output/*
 
 # Lsp temporary files
 .cache/
