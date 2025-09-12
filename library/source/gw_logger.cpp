@@ -46,10 +46,57 @@ enum class UsingAnsiColorsStatus: std::uint8_t { Enabled, Failed, NotAvailable, 
 }
 #else
 
+#include <unistd.h>
+#include <cstdlib>
+
 // Helper functions
-[[nodiscard]] auto shouldUseAnsiColorsInTerminal() -> UsingAnsiColorsStatus { return UsingAnsiColorsStatus::Enabled; } // todo(alex): check on unix
-                                                                                                                           // if actually terminal supports
-                                                                                                                           // or has enabled colors
+[[nodiscard]] auto shouldUseAnsiColorsInTerminal() -> UsingAnsiColorsStatus
+{
+    static UsingAnsiColorsStatus s_status = UsingAnsiColorsStatus::Unset;
+
+    if (s_status == UsingAnsiColorsStatus::Enabled || s_status == UsingAnsiColorsStatus::NotAvailable)
+        return s_status;
+
+    bool is_output_stream_a_terminal = static_cast<bool>(isatty(STDOUT_FILENO));
+    if (!is_output_stream_a_terminal)
+    {
+        s_status = UsingAnsiColorsStatus::Failed;
+        return s_status;
+    }
+
+    const char* term_env_var = std::getenv("TERM");
+    const char* colors_disabled_env_var_variant_1 = std::getenv("NO_COLOR");
+    const char* colors_disabled_env_var_variant_2 = std::getenv("CLICOLOR");
+
+    if (term_env_var == nullptr)
+    {
+        s_status = UsingAnsiColorsStatus::Failed;
+        return s_status;
+    }
+
+    std::string term_env_var_string{term_env_var};
+
+    if (!term_env_var_string.contains("color") || colors_disabled_env_var_variant_1 != nullptr)
+    {
+        s_status = UsingAnsiColorsStatus::NotAvailable;
+        return s_status;
+    }
+
+    if (colors_disabled_env_var_variant_2 != nullptr)
+    {
+        std::string colors_disabled_env_var_variant_2_string{colors_disabled_env_var_variant_2};
+
+        if (colors_disabled_env_var_variant_2_string == "0")
+        {
+            s_status = UsingAnsiColorsStatus::NotAvailable;
+            return s_status;
+        }
+    }
+
+    s_status = UsingAnsiColorsStatus::Enabled;
+
+    return s_status;
+}
 #endif
 
 [[nodiscard]] auto colorLogLevelMessage(std::string_view msg, gw::log::LogLevel log_level) -> std::string

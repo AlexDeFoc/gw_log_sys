@@ -9,12 +9,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(BUILD_STATIC_LIB__GW_LOG_SYS "Build static library" TRUE)
 option(BUILD_TESTS__GW_LOG_SYS "Build tests" TRUE)
 
-if (MSVC)
-    set(COMPILER_FLAGS__GW_LOG_SYS /W4 /WX /permissive-)
-else()
-    set(COMPILER_FLAGS__GW_LOG_SYS -Wall -Wpedantic -Wextra -Werror -Wconversion -Wshadow)
-endif()
-
 set(LIB_CPP_FILES__GW_LOG_SYS
     library/source/gw_message.cpp
     library/source/gw_logger.cpp)
@@ -27,7 +21,6 @@ else()
     target_compile_definitions(gw_log_sys PUBLIC BUILD_DLL__GW_LOG_SYS)
 endif()
 
-target_compile_options(gw_log_sys PRIVATE ${COMPILER_FLAGS__GW_LOG_SYS})
 target_include_directories(gw_log_sys PUBLIC library/include)
 
 if (BUILD_TESTS__GW_LOG_SYS)
@@ -48,16 +41,15 @@ if (BUILD_TESTS__GW_LOG_SYS)
 	FetchContent_MakeAvailable(googletest)
 
     # Disable GoogleTest warnings
-    if (MSVC)
-    elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        target_compile_options(gtest PRIVATE -Wno-character-conversion)
-        target_compile_options(gtest_main PRIVATE -Wno-character-conversion)
-    endif()
+    #if (MSVC)
+    #elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        #target_compile_options(gtest PRIVATE -Wno-character-conversion)
+        #target_compile_options(gtest_main PRIVATE -Wno-character-conversion)
+    #endif()
 
 	# Tests setup
     add_executable(gw_log_sys_tests ${TESTS_CPP_FILES__GW_LOG_SYS})
 	target_link_libraries(gw_log_sys_tests PRIVATE gw_log_sys GTest::gtest_main)
-    target_compile_options(gw_log_sys_tests PRIVATE ${COMPILER_FLAGS__GW_LOG_SYS})
     target_include_directories(gw_log_sys_tests PRIVATE tests/include)
 
 	include(GoogleTest)

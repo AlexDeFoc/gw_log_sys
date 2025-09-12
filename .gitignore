@@ -1,7 +1,8 @@
 # Building process
 build/
-output/
-scripts/*/cmake.conf
+scripts/linux/temp/configurations/*
+scripts/linux/temp/distribute/*
+scripts/linux/temp/output/*
 
 # Lsp temporary files
 .cache/

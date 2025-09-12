@@ -22,9 +22,47 @@
 }
 #else
 
+#include <unistd.h>
+#include <cstdlib>
+
 // Helper functions
-// todo(alex): inspire from gw_logger.cpp for support for unix
-[[nodiscard]] auto isColoredPrintingEnabledInTerminal() -> bool { return true; }
+[[nodiscard]] auto isColoredPrintingEnabledInTerminal() -> bool
+{
+
+    bool is_output_stream_a_terminal = static_cast<bool>(isatty(STDOUT_FILENO));
+    if (!is_output_stream_a_terminal)
+    {
+        return false;
+    }
+
+    const char* term_env_var = std::getenv("TERM");
+    const char* colors_disabled_env_var_variant_1 = std::getenv("NO_COLOR");
+    const char* colors_disabled_env_var_variant_2 = std::getenv("CLICOLOR");
+
+    if (term_env_var == nullptr)
+    {
+        return false;
+    }
+
+    std::string term_env_var_string{term_env_var};
+
+    if (!term_env_var_string.contains("color") || colors_disabled_env_var_variant_1 != nullptr)
+    {
+        return false;
+    }
+
+    if (colors_disabled_env_var_variant_2 != nullptr)
+    {
+        std::string colors_disabled_env_var_variant_2_string{colors_disabled_env_var_variant_2};
+
+        if (colors_disabled_env_var_variant_2_string == "0")
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
 #endif
 
 // Tests
