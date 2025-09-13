@@ -424,12 +424,10 @@ Library type: Static (.lib)
 Tests built: True
 ```
 
-############################
-
 ```
 Id: windows__CMake__x86_64__Ninja__Clang_(gnu)__Shared
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -455,7 +453,7 @@ Tests built: False
 ```
 Id: windows__CMake__x86_64__Ninja__Clang_(gnu)__Static
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -481,7 +479,7 @@ Tests built: False
 ```
 Id: windows__CMake__x86_64__Ninja__Clang_(gnu)__Shared__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -507,7 +505,7 @@ Tests built: True
 ```
 Id: windows__CMake__x86_64__Ninja__Clang_(gnu)__Static__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -533,7 +531,7 @@ Tests built: True
 ```
 Id: windows__CMake__i686__Ninja__Clang_(gnu)__Shared
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -559,7 +557,7 @@ Tests built: False
 ```
 Id: windows__CMake__i686__Ninja__Clang_(gnu)__Static
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -585,7 +583,7 @@ Tests built: False
 ```
 Id: windows__CMake__i686__Ninja__Clang_(gnu)__Shared__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -611,7 +609,7 @@ Tests built: True
 ```
 Id: windows__CMake__i686__Ninja__Clang_(gnu)__Static__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -637,7 +635,7 @@ Tests built: True
 ```
 Id: windows__CMake__x86_64__Ninja__GCC__Shared
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -663,7 +661,7 @@ Tests built: False
 ```
 Id: windows__CMake__x86_64__Ninja__GCC__Static
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -689,7 +687,7 @@ Tests built: False
 ```
 Id: windows__CMake__x86_64__Ninja__GCC__Shared__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -715,7 +713,7 @@ Tests built: True
 ```
 Id: windows__CMake__x86_64__Ninja__GCC__Static__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -741,7 +739,7 @@ Tests built: True
 ```
 Id: windows__CMake__i686__Ninja__GCC__Shared
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -767,7 +765,7 @@ Tests built: False
 ```
 Id: windows__CMake__i686__Ninja__GCC__Static
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -793,7 +791,7 @@ Tests built: False
 ```
 Id: windows__CMake__i686__Ninja__GCC__Shared__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
@@ -819,13 +817,429 @@ Tests built: True
 ```
 Id: windows__CMake__i686__Ninja__GCC__Static__With_Tests
 
-Source control: Git @ 2.51.0
+Source control: Git @ 2.47.3
 
 Scripting language: Python @ 3.13.5
 
 Build system: CMake @ 4.1.1
 
 Generator: Ninja @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__x86_64__Make__Clang_(gnu)__Shared
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__x86_64__Make__Clang_(gnu)__Static
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__x86_64__Make__Clang_(gnu)__Shared__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__x86_64__Make__Clang_(gnu)__Static__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__i686__Make__Clang_(gnu)__Shared
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__i686__Make__Clang_(gnu)__Static
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__i686__Make__Clang_(gnu)__Shared__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__i686__Make__Clang_(gnu)__Static__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 4.4.1
+
+Compiler: Clang @ 19.1.7
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__x86_64__Make__GCC__Shared
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__x86_64__Make__GCC__Static
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__x86_64__Make__GCC__Shared__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__x86_64__Make__GCC__Static__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: x86_64
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__i686__Make__GCC__Shared
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__i686__Make__GCC__Static
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Static (.a)
+
+Tests built: False
+```
+
+```
+Id: windows__CMake__i686__Make__GCC__Shared__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
+
+Compiler: GCC @ 14.2.0
+
+Host architecture: x86_64
+
+Target architecture: i686
+
+Host operating system: Linux @ Debian Trixie
+
+ABI: gnu
+
+Library type: Shared (.so)
+
+Tests built: True
+```
+
+```
+Id: windows__CMake__i686__Make__GCC__Static__With_Tests
+
+Source control: Git @ 2.47.3
+
+Scripting language: Python @ 3.13.5
+
+Build system: CMake @ 4.1.1
+
+Generator: Make @ 1.12.1
 
 Compiler: GCC @ 14.2.0
 
