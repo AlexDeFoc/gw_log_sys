@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Suggestion
 about: Idea confirmed by maintainer in discussions tab
 title: "[SUGGESTION]"
 labels: Suggestion
