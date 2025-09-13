@@ -1,7 +1,9 @@
 # gw\_log\_sys - Logging library
 
 This is a C++ 23 library, that provides a way for the user to create message, set their logging level,
-toggling their coloration individually. And a logger that prints the provided message to an
+toggling their coloration individually.
+
+And a logger that prints the provided message to an
 output stream (by default std::cout), setting its logging level limit,
 if it should color any messages at all and more.
 
