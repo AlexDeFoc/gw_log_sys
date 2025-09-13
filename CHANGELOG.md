@@ -11,6 +11,8 @@
 > * Added new method "configure" for logger & message object types to be configured (all its or partial members) in one go, enabling
 > users to not have to use mutex locks just to configure two or more members of a object type, and keep it threads safe.
 >
+> * Added more tests for the new configure method for both object types
+>
 > * Adding linux support, now users on linux can use ninja or make, clang or gcc
 >
 > * Reworked all scripts + building a target will attempt to use multiple threads (all possible - 1, to leave for no lag on the machine)
