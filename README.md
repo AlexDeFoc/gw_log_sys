@@ -24,7 +24,7 @@ Thus it can be used as a local variable or a singleton (working across cpp files
 * Uses C++23
 * Follows TDD & BDD
 * Uses GoogleTest framework for testing
-* Should work on multiple platforms (Windows & Linux)
+* Multi platform: Windows (11) & Linux (Debian Trixie)
 * Thread safe
 * Intuitive setters & getters, object methods, functions inside namespaces
 * Its all organized in the gw::log namespace
