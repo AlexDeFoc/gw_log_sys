@@ -15,6 +15,7 @@ if it should color any messages at all and more.
 ### Logger object type
 
 * Contains a logging level part and if it should color messages logging level message part
+* Prints log level messages colors only if the terminal supports and the user hasn't disabled colors, else it prints without color
 * It works with threads, async, futures and promises. Thus its thread safe.
 * It can be used as a local variable or even as a singleton, by initializing it on the first "gather" of a handle to it.
 Thus it can be used as a local variable or a singleton (working across cpp files), thread safe too.
@@ -33,11 +34,11 @@ Thus it can be used as a local variable or a singleton (working across cpp files
 
 Please go to the [wiki](https://github.com/AlexDeFoc/gw_log_sys/wiki) for documentation, how to use and the entire api (containing functions and other stuff). Also code examples!
 
-## Building & Requirements for building
+## Building
 
 Please follow the guide and steps detailed in the file [BUILDING.md](https://github.com/AlexDeFoc/gw_log_sys/blob/main/BUILDING.md)
 
-## Supported platforms & toolchains & On which were they tested on
+## Supported configurations, platforms, tools
 
 Check out the file [SUPPORTED.md](https://github.com/AlexDeFoc/gw_log_sys/blob/main/SUPPORTED.md)
 
