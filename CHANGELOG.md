@@ -1,4 +1,4 @@
-> ### ID 2 - 2025 september 11 - 15:25 - 1.1.0
+> ### ID 2 - 2025 september 13 - 13:50 - 1.1.0
 >
 > ##### Sava Alexandru-Andrei `<alex.de.foc@gmail.com>`
 >
@@ -11,11 +11,12 @@
 > * Added new method "configure" for logger & message object types to be configured (all its or partial members) in one go, enabling
 > users to not have to use mutex locks just to configure two or more members of a object type, and keep it threads safe.
 >
-> * Fixed small writing issue in BUILDING.md, it was combining two lines into one visually
+> * Adding linux support, now users on linux can use ninja or make, clang or gcc
 >
-> * Changed inside scripts/cmake/windows/build\_single\_target.py so that it runs the cmd using shell=True (same on the linux side)
+> * Reworked all scripts + building a target will attempt to use multiple threads (all possible - 1, to leave for no lag on the machine)
 >
-> * Adding linux support first with scripts + gcc + commands if needed + modifications to the code
+> * Fixed code for linux so it detects if the user terminal doesn't support color or the user has disabled it, it shall not
+> display colored text, else display it
 
 > ### ID 1 - 2025 september 10 - 23:50 - 1.0.0
 >
