@@ -1,77 +1,150 @@
 # Building guide
 
-**Note**: Every version is just one I've tested on, older version could work but it is recommened to use the latest versions or these at least
+**Notes**:
 
-## Requirements
+* Every configuration presented here is just ones that have been tested to be working. Other ones may work too.
+* Any version stated by '@' is the minimum version which was tested on, it may work with older or newer versions.
+* Each configuration id corresponds to the actual output target folder and archive
 
-### Must have all
+## Chapters
 
-#### Source/version control tools
+* [Requirements](#requirements)
+* [Steps](#steps)
+* [Configurations](SUPPORTED.md#configurations)
 
-Git - 2.51.0
+# Requirements
 
-#### Building system generator
+**Note**: One of each
 
-* CMake - version 4.1.1
+## Source control
 
-#### Scripting tool
+* Git @ 2.47.3
 
-* Python - version 3.13.7
+## Build system
 
-### Must have one of these from each category
+* CMake @ 4.1.1
 
-#### Operating system
+## Scripting language
 
-* Windows - version 24H2
+* Python @ 3.13.5
 
-#### Build system
+## Generator
 
-* Ninja - version 1.13.1
+* Ninja @ 1.12.1
+* Make @ 4.4.1
+* Visual Studio @ 17 2022
 
-#### C++ compiler able to compile C++23 source code
+## Compiler
 
-* Clang - version 21.1.0
+* Ninja
+    * Clang @ 19.1.7
+    * GCC @ 14.2.0
 
-## Building steps
+* Make
+    * Clang @ 19.1.7
+    * GCC @ 14.2.0
 
-**Note**: For building as a usual user follow the "Usual user/dev" category steps, else if you are a maintaner or are contributing follow the category called "Maintainer"
+* Visual Studio
+    * MSVC
 
-## Usual user/dev
+## Architecture
 
-### Cloning the repository to a folder called gw\_log\_sys
+* x86\_64 (64 bit)
+* i686 (32 bit)
 
-> git clone https://github.com/AlexDeFoc/gw\_log\_sys.git
- 
-### Going inside the folder which contains scripts to build the project
+## Operating system
 
-> cd scripts
+* Windows @ 11 24H2
+* Linux @ Debian Trixie
 
-### Running the build single target script
+# Steps
 
-> python build\_single\_target.py
+## Getting the project onto your machine
 
-### Going inside the build folder and finding the build library and optionally if previously wished to build tests, the tests executable
+```
+git clone https://github.com/AlexDeFoc/gw_log_sys.git
+```
 
-> cd ..
+## Building a single target
 
-> cd build
+```
+cd gw_log_sys
 
-## Maintainer
+cd scripts
 
-### Cloning the repository to a folder called gw\_log\_sys
+cd (your platform)
 
-> git clone https://github.com/AlexDeFoc/gw\_log\_sys.git
+cd building
 
-### Going inside the folder which contains scripts to build the project
+cd single_target
 
-> cd scripts
+python library.py
+```
 
-### Running all scripts for a single target (build, test) - option 1
+## Running a single target
 
-> python build\_single\_target.py
+**Note**: This will work only if you build the target with tests
 
-> python run\_tests\_for\_single\_target.py 
+```
+cd gw_log_sys
 
-### Running all scripts for a single target (build, pack, test) - option 2
+cd scripts
 
-> python run\_all\_scripts\_for\_single\_target\_with\_tests.py
+cd (your platform)
+
+cd running
+
+python tests.py
+```
+
+## Packing a single target for distributing
+
+```
+cd gw_log_sys
+
+cd scripts
+
+cd (your platform)
+
+cd packaging
+
+cd single_target
+
+python library.py
+```
+
+## Building all available targets
+
+**Note**: This method only build targets without tests, and configure only for release
+
+```
+cd gw_log_sys
+
+cd scripts
+
+cd (your platform)
+
+cd building
+
+cd multi_target
+
+python library.py
+```
+
+## Packaging all available targets
+
+**Note**: This method only works after you've build all available targets previously
+
+```
+cd gw_log_sys
+
+cd scripts
+
+cd (your platform)
+
+cd packaging
+
+cd multi_target
+
+python library.py
+```
