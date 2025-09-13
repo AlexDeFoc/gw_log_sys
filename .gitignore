@@ -8,5 +8,13 @@ scripts/windows/temp/configurations/*
 scripts/windows/temp/distribute/*
 scripts/windows/temp/output/*
 
+!scripts/linux/temp/configurations/.gitkeep
+!scripts/linux/temp/distribute/.gitkeep
+!scripts/linux/temp/output/.gitkeep
+
+!scripts/windows/temp/configurations/.gitkeep
+!scripts/windows/temp/distribute/.gitkeep
+!scripts/windows/temp/output/.gitkeep
+
 # Lsp temporary files
 .cache/
